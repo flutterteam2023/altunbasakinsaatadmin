@@ -1,0 +1,118 @@
+{
+  "project_info": {
+    "project_number": "817652745921",
+    "project_id": "altunbasakinsaat-3be4f",
+    "storage_bucket": "altunbasakinsaat-3be4f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:817652745921:android:652dbe20c355c7c87e3640",
+        "android_client_info": {
+          "package_name": "com.example.altunbasak_insaat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "817652745921-cvdf836v6uq50c75hci0a5ee9gsaqek1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB4M3Ou-2H9CZS77EO5ubqGWRZmrMGjBBY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "817652745921-cvdf836v6uq50c75hci0a5ee9gsaqek1.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "817652745921-ee0h5q9h2ottb8iefpv03nfnmdhpc54s.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.altunbasakInsaat"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:817652745921:android:9142ac2a2f4f1e347e3640",
+        "android_client_info": {
+          "package_name": "com.example.altunbasakinsaat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "817652745921-cvdf836v6uq50c75hci0a5ee9gsaqek1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB4M3Ou-2H9CZS77EO5ubqGWRZmrMGjBBY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "817652745921-cvdf836v6uq50c75hci0a5ee9gsaqek1.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "817652745921-ee0h5q9h2ottb8iefpv03nfnmdhpc54s.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.altunbasakInsaat"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:817652745921:android:146ed9add251b32b7e3640",
+        "android_client_info": {
+          "package_name": "com.example.altunbasakinsaatadmin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "817652745921-cvdf836v6uq50c75hci0a5ee9gsaqek1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB4M3Ou-2H9CZS77EO5ubqGWRZmrMGjBBY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "817652745921-cvdf836v6uq50c75hci0a5ee9gsaqek1.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "817652745921-ee0h5q9h2ottb8iefpv03nfnmdhpc54s.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.altunbasakInsaat"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
