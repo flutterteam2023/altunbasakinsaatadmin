@@ -1,4 +1,4 @@
-import 'package:altunbasakinsaatadmin/features/BuildingAdd/building_add_view.dart';
+import 'package:altunbasakinsaatadmin/features/BuildingAdd/View/building_add_view.dart';
 import 'package:altunbasakinsaatadmin/features/BuildingInfo/building_info_view.dart';
 import 'package:altunbasakinsaatadmin/features/CompleteProject/complete_project_view.dart';
 import 'package:get/get.dart';

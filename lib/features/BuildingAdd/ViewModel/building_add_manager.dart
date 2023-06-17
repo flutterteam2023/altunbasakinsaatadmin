@@ -10,8 +10,8 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import 'Model/build_model.dart';
-import 'Model/onboarding_model.dart';
+import '../Model/build_model.dart';
+import '../Model/onboarding_model.dart';
 
 class BuildAddViewManager extends ValueNotifier {
   factory BuildAddViewManager() => _shared;
@@ -187,7 +187,7 @@ class BuildAddViewManager extends ValueNotifier {
     model.aciklama = aciklama!.value.text;
     model.aidat = aidat!.value.text;
     model.banyoSayisi = banyoSayisi!.value.text;
-    model.baslikFoto = coverPhoto.value[0];
+    model.baslikFoto = coverPhoto.value;
     model.binaninYasi = binaninYasi!.value.text;
     model.bulunduguKat = bulunduguKat!.value.text;
     model.cepheSecenekleri = cepheSecenekleri!.value.text;

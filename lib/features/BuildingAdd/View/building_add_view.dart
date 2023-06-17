@@ -1,4 +1,4 @@
-import 'package:altunbasakinsaatadmin/features/BuildingAdd/building_add_manager.dart';
+import 'package:altunbasakinsaatadmin/features/BuildingAdd/ViewModel/building_add_manager.dart';
 import 'package:altunbasakinsaatadmin/features/BuildingAdd/list_pageView.dart';
 import 'package:flutter/material.dart';
 import 'package:page_view_dot_indicator/page_view_dot_indicator.dart';

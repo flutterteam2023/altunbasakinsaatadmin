@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
 import 'package:get/get.dart';
 
-import '../BuildingInfo/building_info_view.dart';
-import 'building_add_manager.dart';
+import '../../BuildingInfo/building_info_view.dart';
+import '../ViewModel/building_add_manager.dart';
 
 class ConfirmPage extends StatelessWidget {
   const ConfirmPage({

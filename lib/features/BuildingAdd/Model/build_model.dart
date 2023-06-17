@@ -30,7 +30,7 @@ class BuildModel {
   String? aciklama;
   List<String>? icFoto;
   List<String>? disFoto;
-  String? baslikFoto;
+  List<String>? baslikFoto;
   String? konum;
   BuildModel({
     this.ilanNo,
@@ -90,7 +90,7 @@ class BuildModel {
     String? aciklama,
     List<String>? icFoto,
     List<String>? disFoto,
-    String? baslikFoto,
+    List<String>? baslikFoto,
     String? konum,
   }) {
     return BuildModel(
@@ -208,8 +208,9 @@ class BuildModel {
       disFoto: map['disFoto'] != null
           ? List<String>.from((map['disFoto'] as List<String>))
           : null,
-      baslikFoto:
-          map['baslikFoto'] != null ? map['baslikFoto'] as String : null,
+      baslikFoto: map['baslikFoto'] != null
+          ? List<String>.from((map['baslikFoto'] as List<String>))
+          : null,
       konum: map['konum'] != null ? map['konum'] as String : null,
     );
   }
@@ -254,7 +255,7 @@ class BuildModel {
         other.aciklama == aciklama &&
         listEquals(other.icFoto, icFoto) &&
         listEquals(other.disFoto, disFoto) &&
-        other.baslikFoto == baslikFoto &&
+        listEquals(other.baslikFoto, baslikFoto) &&
         other.konum == konum;
   }
 

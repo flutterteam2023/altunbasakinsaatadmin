@@ -1,10 +1,10 @@
-import 'package:altunbasakinsaatadmin/features/BuildingAdd/building_add_manager.dart';
-import 'package:altunbasakinsaatadmin/features/BuildingAdd/map_in_google.dart';
+import 'package:altunbasakinsaatadmin/features/BuildingAdd/ViewModel/building_add_manager.dart';
+import 'package:altunbasakinsaatadmin/features/BuildingAdd/View/map_in_google.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
 import 'package:get/get.dart';
 
-import '../../common_widgets/advert_info_textfield.dart';
+import '../../../common_widgets/advert_info_textfield.dart';
 
 class AdvertInfoView extends StatefulWidget {
   const AdvertInfoView({super.key});

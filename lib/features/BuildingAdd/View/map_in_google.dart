@@ -1,4 +1,4 @@
-import 'package:altunbasakinsaatadmin/features/BuildingAdd/building_add_manager.dart';
+import 'package:altunbasakinsaatadmin/features/BuildingAdd/ViewModel/building_add_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
 import 'package:get/get.dart';

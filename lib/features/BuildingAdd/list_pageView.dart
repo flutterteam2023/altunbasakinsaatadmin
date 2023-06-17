@@ -1,11 +1,11 @@
 import 'dart:io';
 
-import 'package:altunbasakinsaatadmin/features/BuildingAdd/advert_info_view.dart';
-import 'package:altunbasakinsaatadmin/features/BuildingAdd/building_add_manager.dart';
+import 'package:altunbasakinsaatadmin/features/BuildingAdd/View/advert_info_view.dart';
+import 'package:altunbasakinsaatadmin/features/BuildingAdd/ViewModel/building_add_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
 
-import 'confirm_page.dart';
+import 'View/confirm_page.dart';
 
 List<Widget> screen = [
   Column(
