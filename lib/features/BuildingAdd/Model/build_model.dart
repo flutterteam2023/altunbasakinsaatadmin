@@ -31,6 +31,7 @@ class BuildModel {
   List<String>? icFoto;
   List<String>? disFoto;
   List<String>? baslikFoto;
+  List<String>? videoUrls;
   String? konum;
   BuildModel({
     this.ilanNo,
@@ -60,6 +61,7 @@ class BuildModel {
     this.icFoto,
     this.disFoto,
     this.baslikFoto,
+    this.videoUrls,
     this.konum,
   });
 
@@ -91,6 +93,7 @@ class BuildModel {
     List<String>? icFoto,
     List<String>? disFoto,
     List<String>? baslikFoto,
+    List<String>? videoUrls,
     String? konum,
   }) {
     return BuildModel(
@@ -121,6 +124,7 @@ class BuildModel {
       icFoto: icFoto ?? this.icFoto,
       disFoto: disFoto ?? this.disFoto,
       baslikFoto: baslikFoto ?? this.baslikFoto,
+      videoUrls: videoUrls ?? this.videoUrls,
       konum: konum ?? this.konum,
     );
   }
@@ -154,6 +158,7 @@ class BuildModel {
       'icFoto': icFoto,
       'disFoto': disFoto,
       'baslikFoto': baslikFoto,
+      'videoUrls': videoUrls,
       'konum': konum,
     };
   }
@@ -211,6 +216,9 @@ class BuildModel {
       baslikFoto: map['baslikFoto'] != null
           ? List<String>.from((map['baslikFoto'] as List<String>))
           : null,
+      videoUrls: map['videoUrls'] != null
+          ? List<String>.from((map['videoUrls'] as List<String>))
+          : null,
       konum: map['konum'] != null ? map['konum'] as String : null,
     );
   }
@@ -222,7 +230,7 @@ class BuildModel {
 
   @override
   String toString() {
-    return 'BuildModel(ilanNo: $ilanNo, ilanTarihi: $ilanTarihi, ilanBasligi: $ilanBasligi, ilanTipi: $ilanTipi, ilanFiyati: $ilanFiyati, konutSekli: $konutSekli, odaSayisi: $odaSayisi, banyoSayisi: $banyoSayisi, metrekare: $metrekare, binaninYasi: $binaninYasi, kat: $kat, bulunduguKat: $bulunduguKat, isinmaTipi: $isinmaTipi, yakitTipi: $yakitTipi, yapiTipi: $yapiTipi, yapininDurumu: $yapininDurumu, kullanimDurumu: $kullanimDurumu, krediyeUygunluk: $krediyeUygunluk, aidat: $aidat, takas: $takas, cepheSecenekleri: $cepheSecenekleri, kiraGetirisi: $kiraGetirisi, siteIcerisinde: $siteIcerisinde, aciklama: $aciklama, icFoto: $icFoto, disFoto: $disFoto, baslikFoto: $baslikFoto, konum: $konum)';
+    return 'BuildModel(ilanNo: $ilanNo, ilanTarihi: $ilanTarihi, ilanBasligi: $ilanBasligi, ilanTipi: $ilanTipi, ilanFiyati: $ilanFiyati, konutSekli: $konutSekli, odaSayisi: $odaSayisi, banyoSayisi: $banyoSayisi, metrekare: $metrekare, binaninYasi: $binaninYasi, kat: $kat, bulunduguKat: $bulunduguKat, isinmaTipi: $isinmaTipi, yakitTipi: $yakitTipi, yapiTipi: $yapiTipi, yapininDurumu: $yapininDurumu, kullanimDurumu: $kullanimDurumu, krediyeUygunluk: $krediyeUygunluk, aidat: $aidat, takas: $takas, cepheSecenekleri: $cepheSecenekleri, kiraGetirisi: $kiraGetirisi, siteIcerisinde: $siteIcerisinde, aciklama: $aciklama, icFoto: $icFoto, disFoto: $disFoto, baslikFoto: $baslikFoto, videoUrls: $videoUrls, konum: $konum)';
   }
 
   @override
@@ -256,6 +264,7 @@ class BuildModel {
         listEquals(other.icFoto, icFoto) &&
         listEquals(other.disFoto, disFoto) &&
         listEquals(other.baslikFoto, baslikFoto) &&
+        listEquals(other.videoUrls, videoUrls) &&
         other.konum == konum;
   }
 
@@ -288,6 +297,7 @@ class BuildModel {
         icFoto.hashCode ^
         disFoto.hashCode ^
         baslikFoto.hashCode ^
+        videoUrls.hashCode ^
         konum.hashCode;
   }
 }

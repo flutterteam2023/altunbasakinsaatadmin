@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:altunbasakinsaatadmin/features/BuildingAdd/View/advert_info_view.dart';
+import 'package:altunbasakinsaatadmin/features/BuildingAdd/View/video_uploader_view.dart';
 import 'package:altunbasakinsaatadmin/features/BuildingAdd/ViewModel/building_add_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
@@ -248,6 +249,7 @@ List<Widget> screen = [
       ],
     ),
   ),
+  VideoUploaderView(),
   AdvertInfoView(),
   ConfirmPage()
 ];

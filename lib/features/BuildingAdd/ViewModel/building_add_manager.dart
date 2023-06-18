@@ -9,6 +9,7 @@ import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:video_player/video_player.dart';
 
 import '../Model/build_model.dart';
 import '../Model/onboarding_model.dart';
@@ -26,6 +27,8 @@ class BuildAddViewManager extends ValueNotifier {
   List get inphotos => inPhotos.value;
   ValueNotifier<List<String>> coverPhoto = ValueNotifier([]);
   List get coverphotos => coverPhoto.value;
+  ValueNotifier<List<String>> videoUrls = ValueNotifier([]);
+  List get videourls => videoUrls.value;
   ValueNotifier<TextEditingController>? ilanNo;
   ValueNotifier<TextEditingController>? ilanTarihi;
   ValueNotifier<TextEditingController>? ilanBasligi;
@@ -65,6 +68,62 @@ class BuildAddViewManager extends ValueNotifier {
   List<XFile>? pickedCoverImages;
   GoogleMapController? mapsController;
   List<Placemark>? placemarks;
+  ValueNotifier<List<File>> selectedVideos = ValueNotifier<List<File>>([]);
+  final FirebaseStorage storage = FirebaseStorage.instance;
+  final ImagePicker picker = ImagePicker();
+  ValueNotifier<List<VideoPlayerController>> videoControllers =
+      ValueNotifier([]);
+
+  Future<void> pickVideo() async {
+    final pickedFile = await picker.getVideo(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      selectedVideos.value.add(File(pickedFile.path));
+      videoControllers.value
+          .add(VideoPlayerController.file(selectedVideos.value.last));
+      videoControllers.value.last.initialize().then((_) {
+        notifyListeners();
+      });
+      notifyListeners();
+    }
+    notifyListeners();
+  }
+
+  void removeVideo(int index) {
+    selectedVideos.value.removeAt(index);
+
+    videoControllers.value[index].dispose();
+    videoControllers.value.removeAt(index);
+    notifyListeners();
+  }
+
+  Future<void> uploadVideos() async {
+    for (int i = 0; i < selectedVideos.value.length; i++) {
+      String videoName = DateTime.now().millisecondsSinceEpoch.toString();
+      Reference storageReference =
+          storage.ref().child('videos/${ilanNo!.value.text}/$videoName.mp4');
+      UploadTask uploadTask = storageReference.putFile(selectedVideos.value[i]);
+      await uploadTask.whenComplete(() {});
+      String downloadUrl = await storageReference.getDownloadURL();
+      videoUrls.value.add(downloadUrl);
+      notifyListeners();
+      // Storage'den dönen downloadUrl'ü kullanarak istediğin işlemleri yapabilirsin.
+    }
+  }
+
+  Future<void> saveVideoUrlToFirestore(String downloadUrl) async {
+    DocumentReference documentRef =
+        FirebaseFirestore.instance.collection('ilanlar').doc('safasdfdas');
+    DocumentSnapshot documentSnapshot = await documentRef.get();
+
+    List<String> existingUrls = [];
+    if (documentSnapshot.exists) {
+      existingUrls = List<String>.from(documentSnapshot['videos']);
+    }
+
+    existingUrls.add(downloadUrl);
+
+    await documentRef.set({'videos': existingUrls});
+  }
 
   void onMapCreated(GoogleMapController controller) {
     mapsController = controller;
@@ -147,13 +206,21 @@ class BuildAddViewManager extends ValueNotifier {
       },
     ),
     OnBoardingModel(
+      image: 'assets/images/videoAdd.png',
+      buttonText: "Video Seç",
+      onTap: () {
+        BuildAddViewManager().pickVideo();
+      },
+    ),
+    OnBoardingModel(
       image: 'assets/images/imageAdd.png',
       buttonText: "Advert info",
       onTap: () {},
     ),
     OnBoardingModel(
       buttonText: "Onayla",
-      onTap: () {
+      onTap: () async {
+        await BuildAddViewManager().uploadVideos();
         BuildAddViewManager()
             .uploadInPhoto(BuildAddViewManager().ilanNo!.value.text);
         BuildAddViewManager()
@@ -189,6 +256,7 @@ class BuildAddViewManager extends ValueNotifier {
     model.banyoSayisi = banyoSayisi!.value.text;
     model.baslikFoto = coverPhoto.value;
     model.binaninYasi = binaninYasi!.value.text;
+    model.videoUrls = videoUrls.value;
     model.bulunduguKat = bulunduguKat!.value.text;
     model.cepheSecenekleri = cepheSecenekleri!.value.text;
     model.disFoto = externalPhotos.value;

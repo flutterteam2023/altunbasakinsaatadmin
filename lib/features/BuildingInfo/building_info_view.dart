@@ -1,3 +1,4 @@
+import 'package:altunbasakinsaatadmin/features/BuildingAdd/View/video_uploader_view.dart';
 import 'package:altunbasakinsaatadmin/routing/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

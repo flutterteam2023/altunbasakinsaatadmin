@@ -46,6 +46,7 @@ dependencies:
   permission_handler: ^10.3.0
   cloud_firestore: ^4.8.1
   geocoding: ^2.1.0
+  video_player: ^2.6.1
 
 dev_dependencies:
   flutter_test:

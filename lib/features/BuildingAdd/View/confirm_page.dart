@@ -28,7 +28,7 @@ class ConfirmPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               Bounceable(
-                onTap: BuildAddViewManager().screens[4].onTap!,
+                onTap: BuildAddViewManager().screens[5].onTap!,
                 child: ImageIcon(
                   AssetImage(
                     "assets/images/check.png",
