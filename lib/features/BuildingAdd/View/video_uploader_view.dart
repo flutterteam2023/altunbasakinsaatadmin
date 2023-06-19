@@ -11,14 +11,6 @@ class VideoUploaderView extends StatefulWidget {
 
 class _VideoUploaderViewState extends State<VideoUploaderView> {
   @override
-  void dispose() {
-    for (final controller in BuildAddViewManager().videoControllers.value) {
-      controller.dispose();
-    }
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
@@ -29,7 +21,8 @@ class _VideoUploaderViewState extends State<VideoUploaderView> {
               return Container(
                 height: MediaQuery.of(context).size.height - 230,
                 width: MediaQuery.of(context).size.width,
-                child: BuildAddViewManager().selectedVideos.value.isEmpty
+                child: BuildAddViewManager().selectedVideos.value.isEmpty &&
+                        BuildAddViewManager().videoControllers.value.isEmpty
                     ? Center(
                         child: Image.asset(
                             BuildAddViewManager().screens[3].image!))
@@ -62,31 +55,50 @@ class _VideoUploaderViewState extends State<VideoUploaderView> {
                                             builder: (context, value, child) {
                                               return AspectRatio(
                                                 aspectRatio: 1.0,
-                                                child: VideoPlayer(
-                                                    BuildAddViewManager()
+                                                child: BuildAddViewManager()
                                                         .videoControllers
-                                                        .value[index]),
+                                                        .value
+                                                        .isNotEmpty
+                                                    ? VideoPlayer(
+                                                        BuildAddViewManager()
+                                                            .videoControllers
+                                                            .value[index])
+                                                    : SizedBox(),
                                               );
                                             },
                                           )),
-                                      Positioned(
-                                        right: 0,
-                                        top: 0,
-                                        child: IconButton(
-                                            onPressed: () {
+                                      BuildAddViewManager()
+                                                  .videoControllers
+                                                  .value
+                                                  .isNotEmpty &&
                                               BuildAddViewManager()
-                                                  .removeVideo(index);
-                                            },
-                                            icon: Icon(Icons.cancel_rounded)),
-                                      )
+                                                  .videoControllers
+                                                  .value
+                                                  .isNotEmpty
+                                          ? Positioned(
+                                              right: 0,
+                                              top: 0,
+                                              child: IconButton(
+                                                  onPressed: () {
+                                                    BuildAddViewManager()
+                                                        .removeVideo(index);
+                                                  },
+                                                  icon: Icon(
+                                                      Icons.cancel_rounded)),
+                                            )
+                                          : SizedBox()
                                     ],
                                   ),
                                   if (BuildAddViewManager()
                                       .videoControllers
-                                      .value[index]
                                       .value
-                                      .isInitialized)
-                                    SizedBox.shrink(),
+                                      .isNotEmpty)
+                                    if (BuildAddViewManager()
+                                        .videoControllers
+                                        .value[index]
+                                        .value
+                                        .isInitialized)
+                                      SizedBox.shrink(),
                                 ],
                               );
                             },

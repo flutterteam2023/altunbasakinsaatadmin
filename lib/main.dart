@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       enableLog: false,
       getPages: AppPages.routes,
-      initialRoute: Routes.BUILDINGINFO,
+      initialRoute: Routes.Home,
       locale: Locale("tr", "TR"),
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),

@@ -208,16 +208,16 @@ class BuildModel {
           : null,
       aciklama: map['aciklama'] != null ? map['aciklama'] as String : null,
       icFoto: map['icFoto'] != null
-          ? List<String>.from((map['icFoto'] as List<String>))
+          ? List<String>.from((map['icFoto'] as List<dynamic>))
           : null,
       disFoto: map['disFoto'] != null
-          ? List<String>.from((map['disFoto'] as List<String>))
+          ? List<String>.from((map['disFoto'] as List<dynamic>))
           : null,
       baslikFoto: map['baslikFoto'] != null
-          ? List<String>.from((map['baslikFoto'] as List<String>))
+          ? List<String>.from((map['baslikFoto'] as List<dynamic>))
           : null,
       videoUrls: map['videoUrls'] != null
-          ? List<String>.from((map['videoUrls'] as List<String>))
+          ? List<String>.from((map['videoUrls'] as List<dynamic>))
           : null,
       konum: map['konum'] != null ? map['konum'] as String : null,
     );
