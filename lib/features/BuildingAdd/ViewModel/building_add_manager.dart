@@ -9,7 +9,6 @@ import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:video_player/video_player.dart';
 
 import '../Model/build_model.dart';
 import '../Model/onboarding_model.dart';
@@ -33,8 +32,6 @@ class BuildAddViewManager extends ValueNotifier {
   List get icfoto => icFoto.value;
   ValueNotifier<List<String>> baslikFoto = ValueNotifier([]);
   List get baslikfoto => baslikFoto.value;
-  ValueNotifier<List<String>> videoUrls = ValueNotifier([]);
-  List get videourls => videoUrls.value;
   ValueNotifier<TextEditingController>? ilanNo;
   ValueNotifier<TextEditingController>? ilanTarihi;
   ValueNotifier<TextEditingController>? ilanBasligi;
@@ -69,6 +66,7 @@ class BuildAddViewManager extends ValueNotifier {
   ValueNotifier<String> il = ValueNotifier<String>("");
   ValueNotifier<String> ilce = ValueNotifier<String>("");
   ValueNotifier<TextEditingController>? addressController;
+  ValueNotifier<List<String>> videoUrlList = ValueNotifier<List<String>>([]);
 
   ValueNotifier<LatLng?> selectedLocation = ValueNotifier(null);
   List<XFile>? pickedInImages;
@@ -76,53 +74,8 @@ class BuildAddViewManager extends ValueNotifier {
   List<XFile>? pickedCoverImages;
   GoogleMapController? mapsController;
   List<Placemark>? placemarks;
-  ValueNotifier<List<File>> selectedVideos = ValueNotifier<List<File>>([]);
   final FirebaseStorage storage = FirebaseStorage.instance;
   final ImagePicker picker = ImagePicker();
-  ValueNotifier<List<VideoPlayerController>> videoControllers =
-      ValueNotifier([]);
-
-  Future<void> pickVideo() async {
-    final pickedFile = await picker.getVideo(source: ImageSource.gallery);
-    if (pickedFile != null) {
-      selectedVideos.value.add(File(pickedFile.path));
-      videoControllers.value
-          .add(VideoPlayerController.file(selectedVideos.value.last));
-      videoControllers.value.last.initialize().then((_) {
-        notifyListeners();
-      });
-      notifyListeners();
-    }
-    notifyListeners();
-  }
-
-  void removeVideo(int index) {
-    selectedVideos.value.removeAt(index);
-
-    // videoControllers.value[index].dispose();
-    videoControllers.value.removeAt(index);
-    notifyListeners();
-  }
-
-  Future<void> uploadVideos() async {
-    if (ilanNo!.value.text.isNotEmpty) {
-      isLoading.value = true;
-      notifyListeners();
-      for (int i = 0; i < selectedVideos.value.length; i++) {
-        String videoName = DateTime.now().millisecondsSinceEpoch.toString();
-        Reference storageReference =
-            storage.ref().child('videos/${ilanNo!.value.text}/$videoName.mp4');
-        UploadTask uploadTask =
-            storageReference.putFile(selectedVideos.value[i]);
-        await uploadTask.whenComplete(() {});
-        String downloadUrl = await storageReference.getDownloadURL();
-        videoUrls.value.add(downloadUrl);
-        if (i == selectedVideos.value.length - 1) {}
-        notifyListeners();
-        // Storage'den dönen downloadUrl'ü kullanarak istediğin işlemleri yapabilirsin.
-      }
-    }
-  }
 
   void onMapCreated(GoogleMapController controller) {
     mapsController = controller;
@@ -206,10 +159,8 @@ class BuildAddViewManager extends ValueNotifier {
     ),
     OnBoardingModel(
       image: 'assets/images/videoAdd.png',
-      buttonText: "Video Seç",
-      onTap: () {
-        BuildAddViewManager().pickVideo();
-      },
+      buttonText: "Video Url Ekle",
+      onTap: () {},
     ),
     OnBoardingModel(
       image: 'assets/images/imageAdd.png',
@@ -219,7 +170,6 @@ class BuildAddViewManager extends ValueNotifier {
     OnBoardingModel(
       buttonText: "Onayla",
       onTap: () async {
-        await BuildAddViewManager().uploadVideos();
         await BuildAddViewManager().uploadExternPhoto();
         await BuildAddViewManager().uploadCoverPhoto();
 
@@ -262,7 +212,7 @@ class BuildAddViewManager extends ValueNotifier {
     model.binaninYasi = binaninYasi!.value.text.isNotEmpty
         ? binaninYasi!.value.text
         : "Belirtilmedi";
-    model.videoUrls = videoUrls.value;
+    model.videoUrls = videoUrlList.value;
     model.bulunduguKat = bulunduguKat!.value.text.isNotEmpty
         ? bulunduguKat!.value.text
         : "Belirtilmedi";
@@ -321,12 +271,14 @@ class BuildAddViewManager extends ValueNotifier {
     addressController!.value.clear();
 
     if (model.ilanNo!.isNotEmpty) {
+      isLoading.value = true;
       try {
         await FirebaseFirestore.instance
             .collection('ilanlar')
             .doc('${model.ilanNo}')
             .set(model.toMap());
         isWriteFirestore.value = true;
+        isLoading.value = false;
         notifyListeners();
         print('Veri Firestore\'a başarıyla yazıldı');
       } catch (e) {
@@ -365,9 +317,7 @@ class BuildAddViewManager extends ValueNotifier {
       aciklama!.value.clear();
       externalPhotos.value.clear();
       inPhotos.value.clear();
-      videoUrls.value.clear();
-      selectedVideos.value.clear();
-      videoControllers.value.clear();
+      videoUrlList.value.clear();
 
       coverPhoto.value.clear();
       notifyListeners();
@@ -405,8 +355,7 @@ class BuildAddViewManager extends ValueNotifier {
       aciklama!.value.clear();
       externalPhotos.value.clear();
       inPhotos.value.clear();
-      selectedVideos.value.clear();
-      videoControllers.value.clear();
+      videoUrlList.value.clear();
 
       coverPhoto.value.clear();
       notifyListeners();
@@ -477,6 +426,7 @@ class BuildAddViewManager extends ValueNotifier {
 
   Future<void> uploadInPhoto() async {
     if (ilanNo!.value.text.isNotEmpty) {
+      isLoading.value = true;
       if (pickedInImages != null) {
         for (var image in pickedInImages!) {
           try {
@@ -487,7 +437,6 @@ class BuildAddViewManager extends ValueNotifier {
             var downloadUrl = await ref.getDownloadURL();
             icFoto.value.add(downloadUrl);
 
-            isInUpload.value = true;
             notifyListeners();
           } catch (e) {
             print(e.toString());
@@ -499,6 +448,8 @@ class BuildAddViewManager extends ValueNotifier {
 
   Future<void> uploadExternPhoto() async {
     if (ilanNo!.value.text.isNotEmpty) {
+      isLoading.value = true;
+      notifyListeners();
       if (pickedExtImages != null) {
         for (var image in pickedExtImages!) {
           try {
@@ -521,6 +472,7 @@ class BuildAddViewManager extends ValueNotifier {
 
   Future<void> uploadCoverPhoto() async {
     if (ilanNo!.value.text.isNotEmpty) {
+      isLoading.value = true;
       if (pickedCoverImages != null) {
         for (var image in pickedCoverImages!) {
           try {

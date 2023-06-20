@@ -17,12 +17,29 @@ class _HomeViewState extends State<HomeView> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        backgroundColor: Color(0xffe31e24),
-        centerTitle: true,
-        title: Text(
-          "Altunbaşak İnşaat Admin Panel",
-          style: TextStyle(
-              color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold),
+        backgroundColor: Colors.red,
+        title: Row(
+          children: [
+            Container(
+              width: 40,
+              height: 40,
+              decoration: BoxDecoration(
+                color: Colors.red,
+                image: DecorationImage(
+                    image: AssetImage("assets/images/logo.jpg"),
+                    fit: BoxFit.fill),
+                shape: BoxShape.circle,
+              ),
+            ),
+            SizedBox(width: 20),
+            Text(
+              'Anasayfa',
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
         ),
       ),
       body: Padding(
@@ -39,8 +56,8 @@ class _HomeViewState extends State<HomeView> {
                 height: 100,
                 width: 50,
                 decoration: BoxDecoration(
-                    color: Colors.yellow,
-                    borderRadius: BorderRadius.circular(10)),
+                    borderRadius: BorderRadius.circular(10),
+                    color: Colors.yellow),
                 child: Column(
                   children: [
                     Padding(
@@ -94,7 +111,9 @@ class _HomeViewState extends State<HomeView> {
               ),
             ),
             Bounceable(
-              onTap: () {},
+              onTap: () {
+                Get.to(VideoUploaderView());
+              },
               child: Container(
                 height: 100,
                 width: 50,

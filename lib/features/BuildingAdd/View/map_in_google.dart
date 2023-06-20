@@ -136,8 +136,8 @@ class _MapInGoogleState extends State<MapInGoogle> {
                   onTap: BuildAddViewManager().onMapTap,
                   onMapCreated: BuildAddViewManager().onMapCreated,
                   initialCameraPosition: CameraPosition(
-                    target: LatLng(38.963745, 35.243320),
-                    zoom: 1,
+                    target: LatLng(37.874641, 32.493156),
+                    zoom: 14,
                   ),
                   markers: Set<Marker>.of(
                       BuildAddViewManager().selectedLocation.value == null

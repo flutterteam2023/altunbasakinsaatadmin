@@ -49,7 +49,7 @@ class _AdvertInfoViewState extends State<AdvertInfoView> {
                         "Konum Ekle",
                         style: TextStyle(
                             fontSize: 20,
-                            color: Colors.white,
+                            color: Colors.black,
                             fontWeight: FontWeight.bold),
                       )),
                     ),

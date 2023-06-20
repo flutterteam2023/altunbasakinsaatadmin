@@ -83,7 +83,7 @@ List<Widget> screen = [
                 child: Text(
                   BuildAddViewManager().screens[0].buttonText,
                   style: TextStyle(
-                      color: Colors.white,
+                      color: Colors.black,
                       fontSize: 15,
                       fontWeight: FontWeight.bold),
                 ),
@@ -169,7 +169,7 @@ List<Widget> screen = [
                 child: Text(
                   BuildAddViewManager().screens[1].buttonText,
                   style: TextStyle(
-                      color: Colors.white,
+                      color: Colors.black,
                       fontSize: 15,
                       fontWeight: FontWeight.bold),
                 ),
@@ -237,7 +237,7 @@ List<Widget> screen = [
                   child: Text(
                     BuildAddViewManager().screens[2].buttonText,
                     style: TextStyle(
-                        color: Colors.white,
+                        color: Colors.black,
                         fontSize: 15,
                         fontWeight: FontWeight.bold),
                   ),

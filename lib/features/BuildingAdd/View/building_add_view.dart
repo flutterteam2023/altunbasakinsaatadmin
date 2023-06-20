@@ -90,12 +90,12 @@ class _BuildingAddViewState extends State<BuildingAddView> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color(0xffe31e24),
-        iconTheme: IconThemeData(color: Colors.white, size: 32),
+        iconTheme: IconThemeData(color: Colors.black, size: 32),
         centerTitle: true,
         title: Text(
           "İlan Oluştur",
           style: TextStyle(
-              color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold),
+              color: Colors.black, fontSize: 25, fontWeight: FontWeight.bold),
         ),
       ),
       body: Stack(

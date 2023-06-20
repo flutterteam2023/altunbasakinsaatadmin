@@ -24,13 +24,13 @@ class _BuildInfoViewState extends State<BuildInfoView> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          iconTheme: IconThemeData(color: Colors.white),
+          iconTheme: IconThemeData(color: Colors.black),
           backgroundColor: Color(0xffe31e24),
           centerTitle: true,
           title: Text(
             "İlanlarım",
             style: TextStyle(
-                color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold),
+                color: Colors.black, fontSize: 25, fontWeight: FontWeight.bold),
           ),
         ),
         body: ValueListenableBuilder(

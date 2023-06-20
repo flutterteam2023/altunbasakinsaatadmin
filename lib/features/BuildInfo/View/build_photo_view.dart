@@ -1,8 +1,5 @@
 import 'package:altunbasakinsaatadmin/features/BuildInfo/Value/build_photo_list.dart';
 import 'package:flutter/material.dart';
-import 'package:rive/rive.dart';
-
-import '../../BuildingAdd/Model/build_model.dart';
 
 class BuildPhotoView extends StatefulWidget {
   final String documentId;
@@ -24,13 +21,13 @@ class _BuildPhotoViewState extends State<BuildPhotoView> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          iconTheme: IconThemeData(color: Colors.white),
+          iconTheme: IconThemeData(color: Colors.black),
           backgroundColor: Color(0xffe31e24),
           centerTitle: true,
           title: Text(
             "İlan Fotoğrafları",
             style: TextStyle(
-                color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold),
+                color: Colors.black, fontSize: 25, fontWeight: FontWeight.bold),
           ),
         ),
         body: Padding(
