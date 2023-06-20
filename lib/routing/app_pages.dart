@@ -1,8 +1,9 @@
-import 'package:altunbasakinsaatadmin/features/BuildInfo/build_info_View.dart';
 import 'package:altunbasakinsaatadmin/features/BuildingAdd/View/building_add_view.dart';
 import 'package:altunbasakinsaatadmin/features/Home/home_view.dart';
 import 'package:altunbasakinsaatadmin/features/CompleteProject/complete_project_view.dart';
 import 'package:get/get.dart';
+
+import '../features/BuildInfo/View/build_info_view.dart';
 
 part 'app_routes.dart';
 

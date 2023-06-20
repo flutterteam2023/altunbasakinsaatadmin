@@ -1,15 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
 import 'package:get/get.dart';
+import 'package:rive/rive.dart';
 
 import '../../Home/home_view.dart';
 import '../ViewModel/building_add_manager.dart';
 
-class ConfirmPage extends StatelessWidget {
+class ConfirmPage extends StatefulWidget {
   const ConfirmPage({
     super.key,
   });
 
+  @override
+  State<ConfirmPage> createState() => _ConfirmPageState();
+}
+
+class _ConfirmPageState extends State<ConfirmPage> {
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder(
@@ -61,10 +68,7 @@ class ConfirmPage extends StatelessWidget {
                   ],
                 ),
               )
-            : Center(
-                child: CircularProgressIndicator(
-                color: Colors.red,
-              ));
+            : Center(child: RiveAnimation.asset("assets/images/home.riv"));
       },
     );
   }

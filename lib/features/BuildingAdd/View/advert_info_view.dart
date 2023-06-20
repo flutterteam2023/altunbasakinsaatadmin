@@ -1,8 +1,10 @@
 import 'package:altunbasakinsaatadmin/features/BuildingAdd/ViewModel/building_add_manager.dart';
 import 'package:altunbasakinsaatadmin/features/BuildingAdd/View/map_in_google.dart';
+import 'package:datetime_picker_formfield_new/datetime_picker_formfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 import '../../../common_widgets/advert_info_textfield.dart';
 
@@ -23,6 +25,7 @@ class _AdvertInfoViewState extends State<AdvertInfoView> {
 
   @override
   Widget build(BuildContext context) {
+    final format = DateFormat("dd/MM/yyyy");
     return SingleChildScrollView(
       child: Padding(
           padding: const EdgeInsets.only(
@@ -78,10 +81,55 @@ class _AdvertInfoViewState extends State<AdvertInfoView> {
                   SizedBox(
                     height: 17,
                   ),
-                  AdvertInfoTextField(
-                    label: "İlan Tarihi",
-                    type: TextInputType.datetime,
+                  DateTimeField(
                     controller: BuildAddViewManager().ilanTarihi!.value,
+                    format: format,
+                    decoration: InputDecoration(
+                      enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: BorderSide(
+                            width: 2,
+                            color: Color(0xff232455),
+                          )),
+                      focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: BorderSide(
+                            width: 2,
+                            color: Color(0xffe31e24),
+                          )),
+                      filled: true,
+                      fillColor: Colors.white,
+                      label: Text(
+                        "İlan Tarihi",
+                        style:
+                            TextStyle(color: Color(0xff232455), fontSize: 15),
+                      ),
+                    ),
+                    onShowPicker: (context, currentValue) async {
+                      final date = await showDatePicker(
+                          context: context,
+                          firstDate: DateTime(2000),
+                          initialDate: currentValue ?? DateTime.now(),
+                          lastDate: DateTime(2100),
+                          builder: (BuildContext context, Widget? child) {
+                            return Theme(
+                              data: ThemeData.light().copyWith(
+                                colorScheme: ColorScheme.light(
+                                  primary: Colors
+                                      .red, // Tarih seçici başlığı için renk
+                                  onPrimary: Colors
+                                      .white, // Tarih seçici başlığı metni için renk
+                                  onSurface: Colors
+                                      .black, // Seçim yapılabilir tarihlerin metni için renk
+                                ),
+                                dialogBackgroundColor: Colors
+                                    .white, // Tarih seçici arka plan rengi
+                              ),
+                              child: child!,
+                            );
+                          });
+                      return date;
+                    },
                   ),
                   SizedBox(
                     height: 17,

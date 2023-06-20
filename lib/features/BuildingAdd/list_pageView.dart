@@ -181,7 +181,7 @@ List<Widget> screen = [
     ],
   ),
   Padding(
-    padding: const EdgeInsets.only(top: 170),
+    padding: const EdgeInsets.only(top: 85),
     child: Column(
       children: [
         ValueListenableBuilder(

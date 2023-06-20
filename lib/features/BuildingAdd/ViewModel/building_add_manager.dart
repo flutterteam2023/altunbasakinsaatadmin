@@ -117,10 +117,7 @@ class BuildAddViewManager extends ValueNotifier {
         await uploadTask.whenComplete(() {});
         String downloadUrl = await storageReference.getDownloadURL();
         videoUrls.value.add(downloadUrl);
-        if (i == selectedVideos.value.length - 1) {
-          isLoading.value = false;
-          notifyListeners();
-        }
+        if (i == selectedVideos.value.length - 1) {}
         notifyListeners();
         // Storage'den dönen downloadUrl'ü kullanarak istediğin işlemleri yapabilirsin.
       }
@@ -408,6 +405,8 @@ class BuildAddViewManager extends ValueNotifier {
       aciklama!.value.clear();
       externalPhotos.value.clear();
       inPhotos.value.clear();
+      selectedVideos.value.clear();
+      videoControllers.value.clear();
 
       coverPhoto.value.clear();
       notifyListeners();

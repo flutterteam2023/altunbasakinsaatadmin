@@ -1,7 +1,10 @@
-import 'package:altunbasakinsaatadmin/features/BuildInfo/build_info_manager.dart';
-import 'package:altunbasakinsaatadmin/features/BuildingAdd/Model/build_model.dart';
+import 'package:altunbasakinsaatadmin/features/BuildInfo/View/build_photo_view.dart';
+import 'package:altunbasakinsaatadmin/features/BuildInfo/Value/build_info_list.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
+import 'package:get/get.dart';
+import 'package:rive/rive.dart';
 
 class BuildInfoView extends StatefulWidget {
   const BuildInfoView({super.key});
@@ -11,6 +14,12 @@ class BuildInfoView extends StatefulWidget {
 }
 
 class _BuildInfoViewState extends State<BuildInfoView> {
+  @override
+  void initState() {
+    BuildInfoList.insantace.fetch();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,55 +33,49 @@ class _BuildInfoViewState extends State<BuildInfoView> {
                 color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold),
           ),
         ),
-        body: FutureBuilder<List<BuildModel>>(
-          future: BuildInfoManager().getBuildModels(),
-          builder: (context, snapshot) {
-            if (snapshot.hasError) {
-              return Text("veriler çekilirken hata oluştu");
-            } else if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(
-                child: CircularProgressIndicator(
-                  color: Colors.red,
-                ),
-              );
-            } else {
-              final data = snapshot.data!;
-              return ListView.builder(
-                itemCount: data.length,
-                itemBuilder: (context, index) {
-                  final buildModel = data[index];
+        body: ValueListenableBuilder(
+          valueListenable: BuildInfoList.insantace,
+          builder: (context, value, child) {
+            return BuildInfoList.insantace.value.isNotEmpty
+                ? ListView.builder(
+                    itemCount: BuildInfoList.insantace.value.length,
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      final buildModel = BuildInfoList.insantace.value[index];
 
-                  return AdsCard(
-                    adres: buildModel.konum,
-                    fiyat: buildModel.ilanFiyati,
-                    ilanNo: buildModel.ilanNo,
-                    ilanTipi: buildModel.ilanTipi,
-                    path: buildModel.baslikFoto![0],
-                    aciklama: buildModel.aciklama,
-                    aidat: buildModel.aidat,
-                    banyoSayisi: buildModel.banyoSayisi,
-                    binadakiKatSayisi: buildModel.kat,
-                    binaninYasi: buildModel.binaninYasi,
-                    bulunduguKat: buildModel.bulunduguKat,
-                    cepheSecenekleri: buildModel.cepheSecenekleri,
-                    ilanBasligi: buildModel.ilanBasligi,
-                    ilanTarihi: buildModel.ilanTarihi,
-                    isinmaTipi: buildModel.isinmaTipi,
-                    kiraGetirisi: buildModel.kiraGetirisi,
-                    konutSekli: buildModel.konutSekli,
-                    krediyeUygunluk: buildModel.krediyeUygunluk,
-                    kullanimDurumu: buildModel.kullanimDurumu,
-                    metrekare: buildModel.metrekare,
-                    odaSayisi: buildModel.odaSayisi,
-                    siteIcerisinde: buildModel.siteIcerisinde,
-                    takas: buildModel.takas,
-                    yakitTipi: buildModel.yakitTipi,
-                    yapiTipi: buildModel.yapiTipi,
-                    yapininDurumu: buildModel.yapininDurumu,
-                  );
-                },
-              );
-            }
+                      return AdsCard(
+                        adres: buildModel.konum,
+                        fiyat: buildModel.ilanFiyati,
+                        ilanNo: buildModel.ilanNo,
+                        ilanTipi: buildModel.ilanTipi,
+                        path: buildModel.baslikFoto!.isNotEmpty
+                            ? buildModel.baslikFoto![0]
+                            : null,
+                        aciklama: buildModel.aciklama,
+                        aidat: buildModel.aidat,
+                        banyoSayisi: buildModel.banyoSayisi,
+                        binadakiKatSayisi: buildModel.kat,
+                        binaninYasi: buildModel.binaninYasi,
+                        bulunduguKat: buildModel.bulunduguKat,
+                        cepheSecenekleri: buildModel.cepheSecenekleri,
+                        ilanBasligi: buildModel.ilanBasligi,
+                        ilanTarihi: buildModel.ilanTarihi,
+                        isinmaTipi: buildModel.isinmaTipi,
+                        kiraGetirisi: buildModel.kiraGetirisi,
+                        konutSekli: buildModel.konutSekli,
+                        krediyeUygunluk: buildModel.krediyeUygunluk,
+                        kullanimDurumu: buildModel.kullanimDurumu,
+                        metrekare: buildModel.metrekare,
+                        odaSayisi: buildModel.odaSayisi,
+                        siteIcerisinde: buildModel.siteIcerisinde,
+                        takas: buildModel.takas,
+                        yakitTipi: buildModel.yakitTipi,
+                        yapiTipi: buildModel.yapiTipi,
+                        yapininDurumu: buildModel.yapininDurumu,
+                      );
+                    },
+                  )
+                : Center(child: RiveAnimation.asset("assets/images/home.riv"));
           },
         ));
   }
@@ -140,7 +143,11 @@ class AdsCard extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(top: 25, left: 10, right: 10, bottom: 20),
       child: Bounceable(
-        onTap: () {},
+        onTap: () {
+          Get.to(BuildPhotoView(
+            documentId: ilanNo!,
+          ));
+        },
         child: Container(
           width: 350,
           height: 400,
@@ -156,10 +163,15 @@ class AdsCard extends StatelessWidget {
                   child: Container(
                       height: 120,
                       width: 150,
-                      child: Image.network(
-                        path!,
-                        fit: BoxFit.fill,
-                      )),
+                      child: path != null
+                          ? Image.network(
+                              path!,
+                              fit: BoxFit.fill,
+                            )
+                          : Icon(
+                              Icons.home,
+                              size: 120,
+                            )),
                 ),
               ),
               Expanded(
