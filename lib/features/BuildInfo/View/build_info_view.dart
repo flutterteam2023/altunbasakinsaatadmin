@@ -1,5 +1,6 @@
 import 'package:altunbasakinsaatadmin/features/BuildInfo/View/build_photo_view.dart';
 import 'package:altunbasakinsaatadmin/features/BuildInfo/Value/build_info_list.dart';
+import 'package:altunbasakinsaatadmin/features/Home/home_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
@@ -43,39 +44,81 @@ class _BuildInfoViewState extends State<BuildInfoView> {
                     itemBuilder: (context, index) {
                       final buildModel = BuildInfoList.insantace.value[index];
 
-                      return AdsCard(
-                        adres: buildModel.konum,
-                        fiyat: buildModel.ilanFiyati,
-                        ilanNo: buildModel.ilanNo,
-                        ilanTipi: buildModel.ilanTipi,
-                        path: buildModel.baslikFoto!.isNotEmpty
-                            ? buildModel.baslikFoto![0]
-                            : null,
-                        aciklama: buildModel.aciklama,
-                        aidat: buildModel.aidat,
-                        banyoSayisi: buildModel.banyoSayisi,
-                        binadakiKatSayisi: buildModel.kat,
-                        binaninYasi: buildModel.binaninYasi,
-                        bulunduguKat: buildModel.bulunduguKat,
-                        cepheSecenekleri: buildModel.cepheSecenekleri,
-                        ilanBasligi: buildModel.ilanBasligi,
-                        ilanTarihi: buildModel.ilanTarihi,
-                        isinmaTipi: buildModel.isinmaTipi,
-                        kiraGetirisi: buildModel.kiraGetirisi,
-                        konutSekli: buildModel.konutSekli,
-                        krediyeUygunluk: buildModel.krediyeUygunluk,
-                        kullanimDurumu: buildModel.kullanimDurumu,
-                        metrekare: buildModel.metrekare,
-                        odaSayisi: buildModel.odaSayisi,
-                        siteIcerisinde: buildModel.siteIcerisinde,
-                        takas: buildModel.takas,
-                        yakitTipi: buildModel.yakitTipi,
-                        yapiTipi: buildModel.yapiTipi,
-                        yapininDurumu: buildModel.yapininDurumu,
+                      return Stack(
+                        children: [
+                          AdsCard(
+                            adres: buildModel.konum,
+                            fiyat: buildModel.ilanFiyati,
+                            ilanNo: buildModel.ilanNo,
+                            ilanTipi: buildModel.ilanTipi,
+                            path: buildModel.baslikFoto!.isNotEmpty
+                                ? buildModel.baslikFoto![0]
+                                : null,
+                            aciklama: buildModel.aciklama,
+                            aidat: buildModel.aidat,
+                            banyoSayisi: buildModel.banyoSayisi,
+                            binadakiKatSayisi: buildModel.kat,
+                            binaninYasi: buildModel.binaninYasi,
+                            bulunduguKat: buildModel.bulunduguKat,
+                            cepheSecenekleri: buildModel.cepheSecenekleri,
+                            ilanBasligi: buildModel.ilanBasligi,
+                            ilanTarihi: buildModel.ilanTarihi,
+                            isinmaTipi: buildModel.isinmaTipi,
+                            kiraGetirisi: buildModel.kiraGetirisi,
+                            konutSekli: buildModel.konutSekli,
+                            krediyeUygunluk: buildModel.krediyeUygunluk,
+                            kullanimDurumu: buildModel.kullanimDurumu,
+                            metrekare: buildModel.metrekare,
+                            odaSayisi: buildModel.odaSayisi,
+                            siteIcerisinde: buildModel.siteIcerisinde,
+                            takas: buildModel.takas,
+                            yakitTipi: buildModel.yakitTipi,
+                            yapiTipi: buildModel.yapiTipi,
+                            yapininDurumu: buildModel.yapininDurumu,
+                          ),
+                          Positioned(
+                            left: 20,
+                            top: 20,
+                            child: IconButton(
+                                onPressed: () {
+                                  BuildInfoList.insantace
+                                      .deleteDocument(buildModel.ilanNo!);
+                                  if (BuildInfoList.insantace.value.isEmpty) {
+                                    Get.to(HomeView());
+                                   // BuildInfoList.insantace
+                                     //   .deleteFolder(buildModel.ilanNo!);
+                                  }
+                                },
+                                icon: Icon(
+                                  Icons.delete,
+                                  size: 30,
+                                )),
+                          ),
+                          Positioned(
+                            right: 30,
+                            top: 20,
+                            child: IconButton(
+                                onPressed: () {},
+                                icon: Icon(
+                                  Icons.edit,
+                                  size: 30,
+                                )),
+                          )
+                        ],
                       );
                     },
                   )
-                : Center(child: RiveAnimation.asset("assets/images/home.riv"));
+                : BuildInfoList.insantace.value.isNotEmpty
+                    ? Center(
+                        child: RiveAnimation.asset("assets/images/home.riv"))
+                    : Center(
+                        child: Text(
+                          "İlan Bulunmamakadır",
+                          style: TextStyle(
+                            fontSize: 25,
+                          ),
+                        ),
+                      );
           },
         ));
   }
@@ -141,7 +184,7 @@ class AdsCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 25, left: 10, right: 10, bottom: 20),
+      padding: const EdgeInsets.only(top: 25, left: 30, right: 10, bottom: 20),
       child: Bounceable(
         onTap: () {
           Get.to(BuildPhotoView(

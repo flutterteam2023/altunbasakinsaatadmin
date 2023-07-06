@@ -430,9 +430,8 @@ class BuildAddViewManager extends ValueNotifier {
       if (pickedInImages != null) {
         for (var image in pickedInImages!) {
           try {
-            Reference ref = FirebaseStorage.instance
-                .ref()
-                .child('images/icFoto/${ilanNo!.value.text}/${image.path}');
+            Reference ref = FirebaseStorage.instance.ref().child(
+                'images/icFoto/${ilanNo!.value.text}/${DateTime.now().toString()}');
             await ref.putFile(File(image.path));
             var downloadUrl = await ref.getDownloadURL();
             icFoto.value.add(downloadUrl);
